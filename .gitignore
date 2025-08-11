@@ -123,70 +123,16 @@ tmp/
 temp/
 go1.21.0.linux-amd64.tar.gz
 
-# Blockchain data and runtime files
-Core-Blockchain/chaindata/node*/
-!Core-Blockchain/chaindata/.gitkeep
-Core-Blockchain/chaindata/*/geth/
-Core-Blockchain/chaindata/*/keystore/
-Core-Blockchain/chaindata/*/.rpc
-Core-Blockchain/chaindata/*/history
+# Blockchain runtime data and compiled binaries
+Core-Blockchain/chaindata/node1/
+Core-Blockchain/node_src/build/bin/
+Core-Blockchain/plugins/sync-helper/node_modules/
+Core-Blockchain/plugins/sync-helper/yarn.lock
+Core-Blockchain/tmp/
 
-# Go build artifacts and entire node source
+# Go installation archives
+*.tar.gz
+
+# Untracked files to ignore
 Core-Blockchain/node_src/
-Core-Blockchain/geth
-Core-Blockchain/geth.exe
-Core-Blockchain/*.exe
-
-# Plugin node_modules
-Core-Blockchain/plugins/*/node_modules/
-
-# Additional blockchain files
-Core-Blockchain/chaindata/
-Core-Blockchain/keystore/
-Core-Blockchain/history/
-Core-Blockchain/nodes/
-Core-Blockchain/logs/
-
-# Validator controller artifacts and cache
-validator-controller/node_modules/
-validator-controller/artifacts/
-validator-controller/cache/
-validator-controller/typechain-types/
-
-# Environment files (additional)
-Core-Blockchain/.env
-.env
-
-# Lock files and process IDs
-*.lock
-*.pid
-
-# Database files
-*.db
-*.ldb
-*.log
-
-# RPC and network files
-.rpc
-*.rpc
-
-# Blockchain specific files
-chaindata/
-keystore/
-nodekey
-transactions.rlp
-LOCK
-CURRENT
-CURRENT.bak
-MANIFEST-*
-*.cdat
-*.cidx
-*.rdat
-*.ridx
-FLOCK
-*.bin
-
-# Additional build artifacts
-dist/
-build/
-out/
+gitignore.txt
