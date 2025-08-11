@@ -114,6 +114,9 @@ System-Contracts/coverage.json
 System-Contracts/typechain
 System-Contracts/typechain-types
 
+# Validator Controller - Personal use only, ignore entire directory
+validator-controller/
+
 # Solidity coverage files
 coverage/
 coverage.json
