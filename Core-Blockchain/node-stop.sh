@@ -7,7 +7,7 @@ RED='\033[0;31m'
 ORANGE='\033[0;33m'
 NC='\033[0m' # No Color
 CYAN='\033[0;36m'
-BASE_DIR="/root/splendor-blockchain-v4-testnet/Core-Blockchain"
+BASE_DIR="/root/splendor-blockchain-v4/Core-Blockchain"
 
 #########################################################################
 totalRpc=0
