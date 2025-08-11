@@ -121,23 +121,13 @@ validator-controller/
 coverage/
 coverage.json
 
-# Temporary files
-tmp/
-temp/
-go1.21.0.linux-amd64.tar.gz
 
-# Blockchain runtime data and compiled binaries
-Core-Blockchain/chaindata/node1/
-Core-Blockchain/node_src/build/bin/
-Core-Blockchain/plugins/sync-helper/node_modules/
-Core-Blockchain/plugins/sync-helper/yarn.lock
-Core-Blockchain/tmp/
 
 # Go installation archives
 *.tar.gz
 
 # Untracked files to ignore
-Core-Blockchain/node_src/
+
 gitignore.txt
 
 # Server configurations (sensitive)
