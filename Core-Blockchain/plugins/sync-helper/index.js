@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Web3 } from 'web3';
 import { IpcProvider } from 'web3-providers-ipc';
 
-const IPC_PATH = '/root/splendor-blockchain-v4-testnet/Core-Blockchain/chaindata/node1/geth.ipc';
+const IPC_PATH = '/root/splendor-blockchain-v4/Core-Blockchain/chaindata/node1/geth.ipc';
 const ACCESS_TOKEN = '123075ee67-27ca-4acf-a61a-459c2a00be08';
 const POST_API_URL = 'http://72.60.24.227:3000/post-enode';
 const GET_API_URL = 'http://72.60.24.227:3000/get-enode';
