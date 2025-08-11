@@ -125,6 +125,9 @@ coverage.json
 tmp/
 temp/
 go1.21.0.linux-amd64.tar.gz
+<<<<<<< HEAD
 
 # Server configurations (sensitive)
 server-configs/
+=======
+>>>>>>> 108381fb6909aad765019b3fd3d5a11bb76e8b4a

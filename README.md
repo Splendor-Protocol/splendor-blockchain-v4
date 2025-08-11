@@ -279,6 +279,7 @@ npx hardhat run scripts/deploy.js --network splendor
 - **Stack Overflow**: Tag questions with `splendor-blockchain`
 
 ### Professional Support
+>>>>>>> 108381fb6909aad765019b3fd3d5a11bb76e8b4a
 - **Enterprise Support**: Dedicated support for businesses
 - **Consulting Services**: Custom development and integration
 - **Training Programs**: Developer education and certification
@@ -304,3 +305,5 @@ Splendor Blockchain V4 is production software, but blockchain technology involve
 
 ---
 *Last updated: January 11, 2025*
+=======
+>>>>>>> 108381fb6909aad765019b3fd3d5a11bb76e8b4a
