@@ -735,8 +735,8 @@ try {
    ```
 
 3. **Test on Testnet First**
-   - Always test on testnet before mainnet
-   - Use testnet for debugging and development
+   - Always test locally before mainnet
+   - Use local development for debugging and testing
 
 ### Community Support
 
@@ -810,7 +810,7 @@ For enterprise users or complex issues:
    - Document your code
 
 2. **Deployment**
-   - Test on testnet first
+   - Test locally first
    - Use staging environments
    - Implement gradual rollouts
    - Have rollback plans

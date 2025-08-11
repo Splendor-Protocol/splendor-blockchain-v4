@@ -26,10 +26,10 @@ Splendor Blockchain V4 is a production-ready mainnet that combines the best of E
 
 | Parameter | Value |
 |-----------|-------|
-| **Network Name** | Splendor Testnet RPC |
-| **RPC URL** | https://testnet-rpc.splendor.org/ |
-| **Chain ID** | 2692 |
-| **Currency Symbol** | SPLDT |
+| **Network Name** | Splendor Mainnet RPC |
+| **RPC URL** | https://mainnet-rpc.mainnetz.io/ |
+| **Chain ID** | 2691 |
+| **Currency Symbol** | SPLD |
 | **Block Explorer** | https://explorer.splendor.org/ |
 | **Block Time** | ~1 second |
 
@@ -45,8 +45,8 @@ Splendor Blockchain V4 is a production-ready mainnet that combines the best of E
 ```javascript
 const { ethers } = require('ethers');
 
-// Connect to Splendor testnet
-const provider = new ethers.JsonRpcProvider('https://testnet-rpc.splendor.org/');
+// Connect to Splendor mainnet
+const provider = new ethers.JsonRpcProvider('https://mainnet-rpc.mainnetz.io/');
 
 // Verify connection
 const network = await provider.getNetwork();
@@ -58,7 +58,7 @@ console.log('Connected to:', network.name, 'Chain ID:', network.chainId);
 ```bash
 # Clone and test
 git clone https://github.com/Splendor-Protocol/splendor-blockchain-v4.git
-cd splendor-blockchain-v4-testnet
+cd splendor-blockchain-v4
 npm install
 npm run verify
 ```
@@ -147,8 +147,8 @@ Pre-deployed contracts for network governance:
 module.exports = {
   networks: {
     splendor: {
-      url: "https://testnet-rpc.splendor.org/",
-      chainId: 2692,
+      url: "https://mainnet-rpc.mainnetz.io/",
+      chainId: 2691,
       accounts: [process.env.PRIVATE_KEY]
     }
   }

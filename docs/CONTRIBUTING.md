@@ -229,7 +229,7 @@ async function connectToMainnet(rpcUrl = 'https://splendor-rpc.org/') {
 
 - **Test component interactions**
 - **Verify end-to-end workflows**
-- **Test on testnet** before mainnet
+- **Test locally** before mainnet
 
 ### Performance Tests
 
@@ -267,7 +267,7 @@ npx hardhat coverage
 1. **Self-review** your code for security issues
 2. **Run security tools** (slither, mythril, etc.)
 3. **Request security review** for critical changes
-4. **Test on testnet** extensively
+4. **Test locally** extensively
 
 ### Reporting Security Issues
 
@@ -300,7 +300,7 @@ npx hardhat coverage
 1. **Automated checks** must pass
 2. **Code review** by maintainers
 3. **Security review** for sensitive changes
-4. **Testing** on testnet if applicable
+4. **Testing** locally if applicable
 5. **Approval** from core team
 
 ### After Approval
@@ -341,7 +341,7 @@ Examples:
 2. **Update CHANGELOG.md**
 3. **Create release notes**
 4. **Tag release** with semantic version
-5. **Deploy to testnet** first
+5. **Deploy locally** first for testing
 6. **Deploy to mainnet** after validation
 
 ## Community

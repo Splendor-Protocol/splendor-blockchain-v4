@@ -518,11 +518,11 @@ cd Core-Blockchain
 
 ### Testnet
 
-For testing without real funds, use the testnet:
+For testing without real funds, use a local development environment:
 
 - **RPC URL**: `http://localhost:8546` (if running locally)
-- **Chain ID**: 2692
-- **Faucet**: Available for test tokens
+- **Chain ID**: 2691 (same as mainnet for consistency)
+- **Local Development**: Use Hardhat or Ganache for testing
 
 ## Security Considerations
 
@@ -537,7 +537,7 @@ For testing without real funds, use the testnet:
 ### Smart Contract Security
 
 1. **Verify Contracts**: Always verify contract addresses
-2. **Test Thoroughly**: Test all interactions on testnet first
+2. **Test Thoroughly**: Test all interactions locally first
 3. **Use Libraries**: Use well-tested libraries like OpenZeppelin
 4. **Audit Code**: Get security audits for production contracts
 

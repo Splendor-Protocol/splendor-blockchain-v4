@@ -888,6 +888,6 @@ export default TokenStaking;
 
 ---
 
-**Remember**: Always test your contracts thoroughly on testnet before deploying to mainnet. Smart contract bugs can result in permanent loss of funds.
+**Remember**: Always test your contracts thoroughly in a local development environment before deploying to mainnet. Smart contract bugs can result in permanent loss of funds.
 
 For complex projects, consider getting a professional security audit before mainnet deployment.
