@@ -1,0 +1,909 @@
+{
+	"compiler": {
+		"version": "0.8.17+commit.8df45f5f"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "validator",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "blockNumber",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "bytes32",
+						"name": "evidence",
+						"type": "bytes32"
+					}
+				],
+				"name": "DoubleSignReported",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "bytes32",
+						"name": "evidenceHash",
+						"type": "bytes32"
+					},
+					{
+						"indexed": false,
+						"internalType": "bool",
+						"name": "valid",
+						"type": "bool"
+					}
+				],
+				"name": "EvidenceProcessed",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "validator",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "jailedUntil",
+						"type": "uint256"
+					}
+				],
+				"name": "ValidatorJailed",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "validator",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "reason",
+						"type": "string"
+					}
+				],
+				"name": "ValidatorSlashed",
+				"type": "event"
+			},
+			{
+				"inputs": [],
+				"name": "BronzeValidatorStaking",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "GoldValidatorStaking",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "MaxValidators",
+				"outputs": [
+					{
+						"internalType": "uint16",
+						"name": "",
+						"type": "uint16"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "MinimalStakingCoin",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "ProposalAddr",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "PunishContractAddr",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "SilverValidatorStaking",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "SlashingContractAddr",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "StakingLockPeriod",
+				"outputs": [
+					{
+						"internalType": "uint64",
+						"name": "",
+						"type": "uint64"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "ValidatorContractAddr",
+				"outputs": [
+					{
+						"internalType": "address payable",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "creatorPartPercent",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "doubleSignJailTime",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "doubleSignSlashAmount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "validator",
+						"type": "address"
+					}
+				],
+				"name": "emergencyClearSlashing",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "evidenceList",
+				"outputs": [
+					{
+						"internalType": "bytes32",
+						"name": "",
+						"type": "bytes32"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "evidenceValidityPeriod",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "",
+						"type": "bytes32"
+					}
+				],
+				"name": "evidences",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "blockNumber",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "blockHash1",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "blockHash2",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "bytes",
+						"name": "signature1",
+						"type": "bytes"
+					},
+					{
+						"internalType": "bytes",
+						"name": "signature2",
+						"type": "bytes"
+					},
+					{
+						"internalType": "address",
+						"name": "validator",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "timestamp",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "processed",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "extraRewardsPerBlock",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "evidenceHash",
+						"type": "bytes32"
+					}
+				],
+				"name": "getEvidence",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "blockNumber",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "blockHash1",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "blockHash2",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "address",
+						"name": "validator",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "timestamp",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "processed",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "index",
+						"type": "uint256"
+					}
+				],
+				"name": "getEvidenceByIndex",
+				"outputs": [
+					{
+						"internalType": "bytes32",
+						"name": "",
+						"type": "bytes32"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getEvidenceCount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "index",
+						"type": "uint256"
+					}
+				],
+				"name": "getSlashedValidatorByIndex",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getSlashedValidatorsCount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "validator",
+						"type": "address"
+					}
+				],
+				"name": "getSlashingRecord",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "totalSlashed",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "lastSlashTime",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "doubleSignCount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "isSlashed",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "initialize",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "initialized",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "validator",
+						"type": "address"
+					}
+				],
+				"name": "isJailed",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "jailedUntil",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "maxSlashingPercentage",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "minimumValidatorStaking",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "blockNumber",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "blockHash1",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "blockHash2",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "bytes",
+						"name": "signature1",
+						"type": "bytes"
+					},
+					{
+						"internalType": "bytes",
+						"name": "signature2",
+						"type": "bytes"
+					}
+				],
+				"name": "reportDoubleSign",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "rewardFund",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "slashedValidators",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "slashingRecords",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "totalSlashed",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "lastSlashTime",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "doubleSignCount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "isSlashed",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "stakerPartPercent",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "totalRewards",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "validator",
+						"type": "address"
+					}
+				],
+				"name": "unjailValidator",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_doubleSignSlashAmount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_doubleSignJailTime",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_evidenceValidityPeriod",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_maxSlashingPercentage",
+						"type": "uint256"
+					}
+				],
+				"name": "updateSlashingParams",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "validatorBlockHashes",
+				"outputs": [
+					{
+						"internalType": "bytes32",
+						"name": "",
+						"type": "bytes32"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "validatorPartPercent",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {
+				"emergencyClearSlashing(address)": {
+					"details": "Emergency function to clear slashing record (validators contract only) - for extreme cases"
+				},
+				"getEvidence(bytes32)": {
+					"details": "Get evidence details"
+				},
+				"getEvidenceByIndex(uint256)": {
+					"details": "Get evidence hash by index"
+				},
+				"getEvidenceCount()": {
+					"details": "Get total number of evidences"
+				},
+				"getSlashedValidatorByIndex(uint256)": {
+					"details": "Get slashed validator by index"
+				},
+				"getSlashedValidatorsCount()": {
+					"details": "Get total number of slashed validators"
+				},
+				"getSlashingRecord(address)": {
+					"details": "Get slashing record for a validator"
+				},
+				"isJailed(address)": {
+					"details": "Check if validator is currently jailed"
+				},
+				"reportDoubleSign(uint256,bytes32,bytes32,bytes,bytes)": {
+					"details": "Report double signing evidence",
+					"params": {
+						"blockHash1": "First block hash signed by validator",
+						"blockHash2": "Second block hash signed by validator (different from first)",
+						"blockNumber": "The block number where double signing occurred",
+						"signature1": "Signature for first block",
+						"signature2": "Signature for second block"
+					}
+				},
+				"unjailValidator(address)": {
+					"details": "Unjail a validator - can only be called by Proposal contract after validator voting"
+				},
+				"updateSlashingParams(uint256,uint256,uint256,uint256)": {
+					"details": "Admin function to update slashing parameters"
+				}
+			},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"Slashing.sol": "Slashing"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"Params.sol": {
+			"keccak256": "0xcf0f4b99886e70a62a16e2eef89e2a438921d587219a656b94429c5702c528fb",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://9c4109028b9cdaac65128fa9185117df80409b263d513fa8d25c6c3f3d903baf",
+				"dweb:/ipfs/QmSnSja1na7phj98GtpFYC9f4257EZhAbntfiBMszRALnn"
+			]
+		},
+		"Punish.sol": {
+			"keccak256": "0x322b641986c027f2ba5ef0f01dd724934b2e0560c47502deb08185c9aeaaff6a",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://64ba850e766992b14e7bc71f34028a9204e38232ac38f35427cc773dd06c0eae",
+				"dweb:/ipfs/QmNu6Q1XivDVjTaASbR7e2r7aDhoHE2cJDEcRjEq1zfnun"
+			]
+		},
+		"Slashing.sol": {
+			"keccak256": "0x10218d1f6c252a87d9d56be6a277d2eff5113b13d1c9c541e934937d22458c93",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://a4a7be2c860e63ad8289b1a7b3986d06a6d8b185ddaefc49a1330c22ffc4eaaf",
+				"dweb:/ipfs/QmdHHgFYqyhkfhwtbZfcr4QeMiX2ypG2Fe1sp9guN21XUj"
+			]
+		},
+		"Validators.sol": {
+			"keccak256": "0xcdf066b41fd5416e92c1d6c8624acd8c0355c1f48e9a2852cebc0354dd1de44c",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://1b3cc7294d1b66c0923e25f43fa3d00b0c537c47510fa483867e9ef21552f514",
+				"dweb:/ipfs/QmSgcy1dPCZFPm4AQysCuvGFr3GYn3D4J3nuYoYbmvgzX6"
+			]
+		}
+	},
+	"version": 1
+}

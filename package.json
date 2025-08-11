@@ -1,0 +1,58 @@
+{
+  "name": "splendor-blockchain-v4",
+  "version": "4.0.0",
+  "description": "Splendor Blockchain V4 - A high-performance blockchain with Congress consensus mechanism",
+  "main": "mainnet-verification.js",
+  "scripts": {
+    "start": "node mainnet-verification.js",
+    "verify": "node mainnet-verification.js",
+    "build-node": "cd Core-Blockchain/node_src && go build -o geth.exe ./cmd/geth",
+    "compile-contracts": "cd System-Contracts && npx hardhat compile",
+    "deploy-contracts": "cd System-Contracts && npx hardhat run scripts/deploy.js --network splendor",
+    "test": "npm run verify",
+    "setup": "cd System-Contracts && npm install",
+    "init-genesis": "cd Core-Blockchain && ./geth.exe init genesis.json",
+    "start-validator": "cd Core-Blockchain && ./start-validator.sh",
+    "start-rpc": "cd Core-Blockchain && ./start-rpc.sh"
+  },
+  "keywords": [
+    "blockchain",
+    "mainnet",
+    "ethereum",
+    "congress",
+    "proof-of-authority",
+    "smart-contracts",
+    "web3",
+    "defi",
+    "validator",
+    "staking"
+  ],
+  "author": "Splendor Blockchain Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Splendor-Protocol/splendor-blockchain-v4.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Splendor-Protocol/splendor-blockchain-v4/issues"
+  },
+  "homepage": "https://github.com/Splendor-Protocol/splendor-blockchain-v4#readme",
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=7.0.0",
+    "go": ">=1.15.0"
+  },
+  "dependencies": {
+    "ethers": "^6.13.4"
+  },
+  "devDependencies": {},
+  "os": [
+    "win32",
+    "darwin",
+    "linux"
+  ],
+  "cpu": [
+    "x64",
+    "arm64"
+  ]
+}

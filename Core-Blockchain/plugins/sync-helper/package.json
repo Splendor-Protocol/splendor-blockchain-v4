@@ -1,0 +1,16 @@
+{
+  "name": "sync-helper",
+  "version": "1.0.0",
+  "description": "A node js based plugin for DPos node execution utility that helps in getting synced with the rest of the network",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "hide001, marvelous-bot",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.3",
+    "web3": "^4.11.1"
+  }
+}
