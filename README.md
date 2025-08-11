@@ -26,7 +26,7 @@ Splendor Blockchain V4 is a production-ready mainnet that combines the best of E
 
 | Parameter | Value |
 |-----------|-------|
-| **Network Name** | Splendor RPC |
+| **Network Name** | Splendor Mainnet RPC |
 | **RPC URL** | https://mainnet-rpc.splendor.org/ |
 | **Chain ID** | 2691 |
 | **Currency Symbol** | SPLD |
@@ -93,9 +93,9 @@ Splendor uses an enhanced Proof of Authority consensus called "Congress" that pr
 ### Validator Tiers
 | Tier | Stake Required | Benefits |
 |------|----------------|----------|
-| **Bronze** | 3,947 SPLD (~$1,500) | Entry-level validation |
-| **Silver** | 39,474 SPLD (~$15,000) | Enhanced rewards |
-| **Gold** | 394,737 SPLD (~$150,000) | Maximum rewards & governance |
+| **Bronze** | 3,947 SPLDT (~$1,500) | Entry-level validation |
+| **Silver** | 39,474 SPLDT (~$15,000) | Enhanced rewards |
+| **Gold** | 394,737 SPLDT (~$150,000) | Maximum rewards & governance |
 
 ### System Contracts
 Pre-deployed contracts for network governance:
@@ -201,7 +201,7 @@ npx hardhat run scripts/deploy.js --network splendor
 - **Uptime**: 99.9%+ network availability
 
 ### Economic Model
-- **Gas Fees**: Starting at 1 gwei (0.000000001 SPLD)
+- **Gas Fees**: Starting at 1 gwei (0.000000001 SPLDT)
 - **Validator Rewards**: 60% of gas fees
 - **Staker Rewards**: 30% of gas fees
 - **Development Fund**: 10% of gas fees
@@ -224,7 +224,7 @@ npx hardhat run scripts/deploy.js --network splendor
 
 ### For Users
 1. **Set up MetaMask**: Follow our [MetaMask guide](docs/METAMASK_SETUP.md)
-2. **Get SPLD tokens**: Purchase from supported exchanges
+2. **Get SPLDT tokens**: Purchase from supported exchanges
 3. **Explore DApps**: Try decentralized applications
 4. **Join Community**: Connect with other users
 
@@ -236,7 +236,7 @@ npx hardhat run scripts/deploy.js --network splendor
 
 ### For Validators
 1. **Review Requirements**: Check [Validator Guide](docs/VALIDATOR_GUIDE.md)
-2. **Acquire Stake**: Get minimum 3,947 SPLD
+2. **Acquire Stake**: Get minimum 3,947 SPLDT
 3. **Set up Infrastructure**: Deploy validator node
 4. **Start Validating**: Earn rewards and secure the network
 
@@ -301,3 +301,6 @@ Splendor Blockchain V4 is production software, but blockchain technology involve
 **Built with ❤️ by the Splendor Team**
 
 *Empowering the decentralized future, one block at a time.*
+
+---
+*Last updated: January 11, 2025*
