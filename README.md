@@ -27,7 +27,7 @@ Splendor Blockchain V4 is a production-ready mainnet that combines the best of E
 | Parameter | Value |
 |-----------|-------|
 | **Network Name** | Splendor Mainnet RPC |
-| **RPC URL** | https://mainnet-rpc.mainnetz.io/ |
+| **RPC URL** | https://mainnet-rpc.splendor.org/ |
 | **Chain ID** | 2691 |
 | **Currency Symbol** | SPLD |
 | **Block Explorer** | https://explorer.splendor.org/ |
@@ -46,7 +46,7 @@ Splendor Blockchain V4 is a production-ready mainnet that combines the best of E
 const { ethers } = require('ethers');
 
 // Connect to Splendor mainnet
-const provider = new ethers.JsonRpcProvider('https://mainnet-rpc.mainnetz.io/');
+const provider = new ethers.JsonRpcProvider('https://mainnet-rpc.splendor.org/');
 
 // Verify connection
 const network = await provider.getNetwork();
@@ -147,7 +147,7 @@ Pre-deployed contracts for network governance:
 module.exports = {
   networks: {
     splendor: {
-      url: "https://mainnet-rpc.mainnetz.io/",
+      url: "https://mainnet-rpc.splendor.org/",
       chainId: 2691,
       accounts: [process.env.PRIVATE_KEY]
     }
@@ -279,7 +279,6 @@ npx hardhat run scripts/deploy.js --network splendor
 - **Stack Overflow**: Tag questions with `splendor-blockchain`
 
 ### Professional Support
->>>>>>> 108381fb6909aad765019b3fd3d5a11bb76e8b4a
 - **Enterprise Support**: Dedicated support for businesses
 - **Consulting Services**: Custom development and integration
 - **Training Programs**: Developer education and certification
@@ -305,5 +304,3 @@ Splendor Blockchain V4 is production software, but blockchain technology involve
 
 ---
 *Last updated: January 11, 2025*
-=======
->>>>>>> 108381fb6909aad765019b3fd3d5a11bb76e8b4a
