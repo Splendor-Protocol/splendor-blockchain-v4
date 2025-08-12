@@ -71,7 +71,7 @@ module.exports = {
   networks: {
     // Splendor Mainnet
     splendor: {
-      url: "https://splendor-rpc.org/",
+      url: "https://mainnet-rpc.splendor.org/",
       chainId: 2691,
       accounts: [process.env.PRIVATE_KEY], // Add your private key to .env
       gas: 8000000,

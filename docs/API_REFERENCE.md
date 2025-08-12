@@ -4,7 +4,7 @@ This document provides comprehensive information about the Splendor Blockchain V
 
 ## Overview
 
-Splendor Blockchain V4 is fully compatible with Ethereum's JSON-RPC API, making it easy to integrate with existing tools and libraries. The mainnet RPC endpoint is available at `https://splendor-rpc.org/`.
+Splendor Blockchain V4 is fully compatible with Ethereum's JSON-RPC API, making it easy to integrate with existing tools and libraries. The mainnet RPC endpoint is available at `https://mainnet-rpc.splendor.org/`.
 
 ## Network Information
 
@@ -14,8 +14,8 @@ Splendor Blockchain V4 is fully compatible with Ethereum's JSON-RPC API, making 
 | **Chain ID** | 2691 |
 | **Network ID** | 2691 |
 | **Currency Symbol** | SPLD |
-| **RPC URL** | https://splendor-rpc.org/ |
-| **Block Explorer** | https://splendor-rpc.org/ |
+| **RPC URL** | https://mainnet-rpc.splendor.org/ |
+| **Block Explorer** | https://explorer.splendor.org/ |
 | **Block Time** | ~1 second |
 | **Consensus** | Congress (PoA) |
 
@@ -31,12 +31,12 @@ Splendor supports all standard Ethereum JSON-RPC methods:
 # Get chain ID
 curl -X POST -H "Content-Type: application/json" \
      --data '{"jsonrpc":"2.0","method":"eth_chainId","params":[],"id":1}' \
-     https://splendor-rpc.org/
+     https://mainnet-rpc.splendor.org/
 
 # Get network ID
 curl -X POST -H "Content-Type: application/json" \
      --data '{"jsonrpc":"2.0","method":"net_version","params":[],"id":1}' \
-     https://splendor-rpc.org/
+     https://mainnet-rpc.splendor.org/
 ```
 
 #### Block Information
@@ -45,17 +45,17 @@ curl -X POST -H "Content-Type: application/json" \
 # Get latest block number
 curl -X POST -H "Content-Type: application/json" \
      --data '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}' \
-     https://splendor-rpc.org/
+     https://mainnet-rpc.splendor.org/
 
 # Get block by number
 curl -X POST -H "Content-Type: application/json" \
      --data '{"jsonrpc":"2.0","method":"eth_getBlockByNumber","params":["latest",true],"id":1}' \
-     https://splendor-rpc.org/
+     https://mainnet-rpc.splendor.org/
 
 # Get block by hash
 curl -X POST -H "Content-Type: application/json" \
      --data '{"jsonrpc":"2.0","method":"eth_getBlockByHash","params":["0x...","true"],"id":1}' \
-     https://splendor-rpc.org/
+     https://mainnet-rpc.splendor.org/
 ```
 
 #### Account Information
@@ -64,12 +64,12 @@ curl -X POST -H "Content-Type: application/json" \
 # Get account balance
 curl -X POST -H "Content-Type: application/json" \
      --data '{"jsonrpc":"2.0","method":"eth_getBalance","params":["0x...","latest"],"id":1}' \
-     https://splendor-rpc.org/
+     https://mainnet-rpc.splendor.org/
 
 # Get transaction count (nonce)
 curl -X POST -H "Content-Type: application/json" \
      --data '{"jsonrpc":"2.0","method":"eth_getTransactionCount","params":["0x...","latest"],"id":1}' \
-     https://splendor-rpc.org/
+     https://mainnet-rpc.splendor.org/
 ```
 
 #### Transaction Operations
@@ -78,17 +78,17 @@ curl -X POST -H "Content-Type: application/json" \
 # Send raw transaction
 curl -X POST -H "Content-Type: application/json" \
      --data '{"jsonrpc":"2.0","method":"eth_sendRawTransaction","params":["0x..."],"id":1}' \
-     https://splendor-rpc.org/
+     https://mainnet-rpc.splendor.org/
 
 # Get transaction by hash
 curl -X POST -H "Content-Type: application/json" \
      --data '{"jsonrpc":"2.0","method":"eth_getTransactionByHash","params":["0x..."],"id":1}' \
-     https://splendor-rpc.org/
+     https://mainnet-rpc.splendor.org/
 
 # Get transaction receipt
 curl -X POST -H "Content-Type: application/json" \
      --data '{"jsonrpc":"2.0","method":"eth_getTransactionReceipt","params":["0x..."],"id":1}' \
-     https://splendor-rpc.org/
+     https://mainnet-rpc.splendor.org/
 ```
 
 #### Smart Contract Interaction
@@ -97,17 +97,17 @@ curl -X POST -H "Content-Type: application/json" \
 # Call contract method (read-only)
 curl -X POST -H "Content-Type: application/json" \
      --data '{"jsonrpc":"2.0","method":"eth_call","params":[{"to":"0x...","data":"0x..."},"latest"],"id":1}' \
-     https://splendor-rpc.org/
+     https://mainnet-rpc.splendor.org/
 
 # Estimate gas for transaction
 curl -X POST -H "Content-Type: application/json" \
      --data '{"jsonrpc":"2.0","method":"eth_estimateGas","params":[{"to":"0x...","data":"0x..."}],"id":1}' \
-     https://splendor-rpc.org/
+     https://mainnet-rpc.splendor.org/
 
 # Get contract code
 curl -X POST -H "Content-Type: application/json" \
      --data '{"jsonrpc":"2.0","method":"eth_getCode","params":["0x...","latest"],"id":1}' \
-     https://splendor-rpc.org/
+     https://mainnet-rpc.splendor.org/
 ```
 
 #### Gas and Fee Information
@@ -116,12 +116,12 @@ curl -X POST -H "Content-Type: application/json" \
 # Get gas price
 curl -X POST -H "Content-Type: application/json" \
      --data '{"jsonrpc":"2.0","method":"eth_gasPrice","params":[],"id":1}' \
-     https://splendor-rpc.org/
+     https://mainnet-rpc.splendor.org/
 
 # Get fee history
 curl -X POST -H "Content-Type: application/json" \
      --data '{"jsonrpc":"2.0","method":"eth_feeHistory","params":["0x4","latest",[]],"id":1}' \
-     https://splendor-rpc.org/
+     https://mainnet-rpc.splendor.org/
 ```
 
 ### Extended Methods
@@ -134,12 +134,12 @@ Splendor also supports additional methods for enhanced functionality:
 # Trace transaction
 curl -X POST -H "Content-Type: application/json" \
      --data '{"jsonrpc":"2.0","method":"debug_traceTransaction","params":["0x..."],"id":1}' \
-     https://splendor-rpc.org/
+     https://mainnet-rpc.splendor.org/
 
 # Trace block
 curl -X POST -H "Content-Type: application/json" \
      --data '{"jsonrpc":"2.0","method":"debug_traceBlockByNumber","params":["latest"],"id":1}' \
-     https://splendor-rpc.org/
+     https://mainnet-rpc.splendor.org/
 ```
 
 #### Admin Methods
@@ -193,7 +193,7 @@ function claimRewards() external
 ```javascript
 const { ethers } = require('ethers');
 
-const provider = new ethers.JsonRpcProvider('https://splendor-rpc.org/');
+const provider = new ethers.JsonRpcProvider('https://mainnet-rpc.splendor.org/');
 const validatorsContract = new ethers.Contract(
   '0x000000000000000000000000000000000000F000',
   [
@@ -315,7 +315,7 @@ function getParam(string memory key) external view returns (uint256)
 const Web3 = require('web3');
 
 // Connect to Splendor mainnet
-const web3 = new Web3('https://splendor-rpc.org/');
+const web3 = new Web3('https://mainnet-rpc.splendor.org/');
 
 // Get network info
 const chainId = await web3.eth.getChainId();
@@ -347,7 +347,7 @@ const receipt = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
 const { ethers } = require('ethers');
 
 // Connect to Splendor mainnet
-const provider = new ethers.JsonRpcProvider('https://splendor-rpc.org/');
+const provider = new ethers.JsonRpcProvider('https://mainnet-rpc.splendor.org/');
 
 // Get network info
 const network = await provider.getNetwork();
@@ -415,7 +415,7 @@ const batch = [
   }
 ];
 
-const response = await fetch('https://splendor-rpc.org/', {
+const response = await fetch('https://mainnet-rpc.splendor.org/', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify(batch)
@@ -431,7 +431,7 @@ For real-time data, use the WebSocket endpoint:
 ```javascript
 const WebSocket = require('ws');
 
-const ws = new WebSocket('wss://splendor-rpc.org/ws');
+const ws = new WebSocket('wss://mainnet-rpc.splendor.org/ws');
 
 ws.on('open', () => {
   // Subscribe to new blocks
@@ -480,7 +480,7 @@ Common JSON-RPC error codes:
 from web3 import Web3
 
 # Connect to Splendor mainnet
-w3 = Web3(Web3.HTTPProvider('https://splendor-rpc.org/'))
+w3 = Web3(Web3.HTTPProvider('https://mainnet-rpc.splendor.org/'))
 
 # Check connection
 print(f"Connected: {w3.isConnected()}")

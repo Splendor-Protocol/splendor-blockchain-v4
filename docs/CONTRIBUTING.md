@@ -205,7 +205,7 @@ contract ExampleContract is Ownable, ReentrancyGuard {
  * @param {string} rpcUrl - RPC endpoint URL
  * @returns {Promise<ethers.Provider>} Connected provider
  */
-async function connectToMainnet(rpcUrl = 'https://splendor-rpc.org/') {
+async function connectToMainnet(rpcUrl = 'https://mainnet-rpc.splendor.org/') {
     try {
         const provider = new ethers.JsonRpcProvider(rpcUrl);
         await provider.getNetwork();

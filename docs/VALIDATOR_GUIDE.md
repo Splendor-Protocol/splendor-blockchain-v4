@@ -55,187 +55,97 @@ Splendor uses a Congress consensus mechanism (enhanced Proof of Authority) with 
 
 ## Step-by-Step Validator Setup
 
-### 1. Acquire SPLD Tokens
+### Prerequisites
 
+**⚠️ IMPORTANT: You must create a fresh wallet and have the Private Key - it will be needed for the validator setup!**
+
+Before starting, ensure you have:
+- A fresh wallet with private key access
+- Minimum stake amount for your chosen tier (3,947 SPLD for Bronze, 39,474 SPLD for Silver, 394,737 SPLD for Gold)
+- Server meeting the technical requirements listed above
+
+### 1. Server Setup and Installation
+
+#### Step 1: Switch to Root User
 ```bash
-# Check current SPLD balance
-# You need at least 3,947 SPLD for Bronze tier validation
+sudo -i
 ```
 
-Purchase SPLD from supported exchanges or receive from other users. Ensure you have:
-- Minimum stake amount for your chosen tier
-- Additional SPLD for gas fees and operations
-- Emergency reserve (recommended 10% extra)
-
-### 2. Set Up Your Server
-
-#### Option A: Cloud Provider (Recommended for beginners)
-
-Popular cloud providers:
-- **AWS**: EC2 instances with dedicated networking
-- **Google Cloud**: Compute Engine with SSD storage
-- **DigitalOcean**: Droplets with high-performance options
-- **Vultr**: High-frequency compute instances
-
-#### Option B: Dedicated Server
-
-For advanced users who prefer full control:
-- **Colocation**: Rent rack space in data centers
-- **Home Setup**: Only if you have enterprise-grade internet
-- **Hybrid**: Combination of cloud and dedicated resources
-
-### 3. Install Dependencies
-
+#### Step 2: Update and Upgrade System Packages
 ```bash
-# Update system
-sudo apt update && sudo apt upgrade -y
-
-# Install required packages
-sudo apt install -y build-essential git curl wget
-
-# Install Go (1.15+)
-wget https://golang.org/dl/go1.21.0.linux-amd64.tar.gz
-sudo tar -C /usr/local -xzf go1.21.0.linux-amd64.tar.gz
-echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc
-source ~/.bashrc
-
-# Install Node.js (16+)
-curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-sudo apt-get install -y nodejs
-
-# Verify installations
-go version
-node --version
-npm --version
+apt update && apt upgrade -y
 ```
 
-### 4. Clone and Build
-
+#### Step 3: Install Required Packages
 ```bash
-# Clone the repository
+apt install -y git tar curl wget tmux
+```
+
+#### Step 4: Reboot the Server
+```bash
+reboot
+```
+
+#### Step 5: Switch to Root Again (After Reboot)
+```bash
+sudo -i
+```
+
+#### Step 6: Clone the Splendor Blockchain Repository
+```bash
 git clone https://github.com/Splendor-Protocol/splendor-blockchain-v4.git
-cd splendor-blockchain-v4
-
-# Install dependencies
-npm install
-npm run setup
-
-# Build the node
-npm run build-node
-
-# Initialize genesis
-npm run init-genesis
 ```
 
-### 5. Create Validator Account
-
+#### Step 7: Navigate to Core-Blockchain Directory
 ```bash
-# Navigate to blockchain directory
-cd Core-Blockchain
-
-# Create new account (save the address and password securely!)
-./geth.exe account new --datadir ./data
-
-# Example output:
-# Your new account is locked with a password. Please give a password. Do not forget this password.
-# Password: [enter secure password]
-# Repeat password: [repeat password]
-# Your new key was generated
-# Public address of the key:   0x1234567890123456789012345678901234567890
-# Path of the secret key file: data/keystore/UTC--2025-01-27T...
-
-# IMPORTANT: Save this address and password securely!
+cd splendor-blockchain-v4/Core-Blockchain
 ```
 
-### 6. Fund Your Validator Account
-
-Transfer your SPLD tokens to the validator address you just created:
-
+#### Step 8: Run the Validator Setup
 ```bash
-# Check balance (replace with your validator address)
-curl -X POST -H "Content-Type: application/json" \
-     --data '{"jsonrpc":"2.0","method":"eth_getBalance","params":["0xYOUR_VALIDATOR_ADDRESS","latest"],"id":1}' \
-     https://splendor-rpc.org/
+./node-setup.sh --validator 1
 ```
 
-### 7. Stake Your Tokens
+**Important: Choose option 2 when prompted!**
 
-Interact with the Validators contract to stake your tokens:
-
-```javascript
-// Example staking transaction (use with MetaMask or web3)
-const validatorsContract = new ethers.Contract(
-  '0x000000000000000000000000000000000000F000',
-  validatorsABI,
-  signer
-);
-
-// Stake tokens (amount in wei)
-const stakeAmount = ethers.parseEther('3947'); // For Bronze tier
-await validatorsContract.stake({ value: stakeAmount });
-```
-
-### 8. Configure Your Node
-
-Create a configuration file:
-
+#### Step 9: Start the Validator
 ```bash
-# Create config file
-cat > config.toml << EOF
-[Eth]
-NetworkId = 2691
-SyncMode = "full"
-
-[Node]
-DataDir = "./data"
-HTTPHost = "0.0.0.0"
-HTTPPort = 8545
-HTTPModules = ["eth", "net", "web3", "txpool"]
-
-[Node.P2P]
-MaxPeers = 50
-NoDiscovery = false
-BootstrapNodes = [
-  "enode://[bootstrap-node-1]",
-  "enode://[bootstrap-node-2]"
-]
-
-[Miner]
-Etherbase = "0xYOUR_VALIDATOR_ADDRESS"
-GasFloor = 8000000
-GasCeil = 8000000
-GasPrice = 1000000000
-Recommit = 3000000000
-EOF
+./node-start.sh --validator
 ```
 
-### 9. Start Your Validator Node
+**Note: Ignore any PM2 errors - these are for RPC nodes and don't affect validator operation.**
 
+#### Step 10: Attach to the Validator Session
 ```bash
-# Create password file (secure this file!)
-echo "your_password_here" > password.txt
-chmod 600 password.txt
-
-# Start validator node
-./geth.exe --config config.toml \
-           --mine \
-           --miner.etherbase 0xYOUR_VALIDATOR_ADDRESS \
-           --unlock 0xYOUR_VALIDATOR_ADDRESS \
-           --password password.txt \
-           --allow-insecure-unlock
+tmux attach -t node1
 ```
 
-### 10. Verify Your Validator
+#### Step 11: Wait for 'Unauthorized' Status
+Wait until the output shows 'unauthorized'. This indicates the node is running but not yet authorized as a validator.
 
-```bash
-# Check if your node is running
-curl -X POST -H "Content-Type: application/json" \
-     --data '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}' \
-     http://localhost:8545
+#### Step 12: Detach from Session (Keep Node Running)
+To leave the node running in the background:
+- Press `CTRL + b`
+- Release both keys
+- Press `d`
 
-# Check validator status
-npm run verify
-```
+This detaches you from the tmux session while keeping the validator node running.
+
+### 2. Register as Guardian/Validator
+
+#### Step 1: Access the Dashboard
+Go to [https://dashboard.splendor.org/](https://dashboard.splendor.org/)
+
+#### Step 2: Connect Your Wallet
+- Click "Become a Guardian"
+- Connect the wallet that contains your SPLD tokens
+- **Important**: This must be the same wallet whose private key you used during validator setup
+
+#### Step 3: Choose Your Tier
+- Select your desired tier (Silver recommended for most validators)
+- Ensure you have sufficient SPLD tokens for the chosen tier
+- Complete the staking process through the dashboard
+
 
 ## Validator Operations
 
@@ -261,24 +171,6 @@ npm run verify
    - Gas price trends
    - Network congestion
 
-#### Monitoring Tools
-
-```bash
-# Check node status
-curl -X POST -H "Content-Type: application/json" \
-     --data '{"jsonrpc":"2.0","method":"admin_nodeInfo","params":[],"id":1}' \
-     http://localhost:8545
-
-# Check peer count
-curl -X POST -H "Content-Type: application/json" \
-     --data '{"jsonrpc":"2.0","method":"net_peerCount","params":[],"id":1}' \
-     http://localhost:8545
-
-# Check mining status
-curl -X POST -H "Content-Type: application/json" \
-     --data '{"jsonrpc":"2.0","method":"eth_mining","params":[],"id":1}' \
-     http://localhost:8545
-```
 
 ### Maintaining Your Validator
 
@@ -302,18 +194,6 @@ curl -X POST -H "Content-Type: application/json" \
    - Hardware health check
    - Financial performance review
 
-#### Backup Procedures
-
-```bash
-# Backup keystore (CRITICAL!)
-cp -r data/keystore/ ~/validator-backup/keystore-$(date +%Y%m%d)/
-
-# Backup configuration
-cp config.toml ~/validator-backup/config-$(date +%Y%m%d).toml
-
-# Backup important logs
-cp -r logs/ ~/validator-backup/logs-$(date +%Y%m%d)/
-```
 
 ### Upgrading Your Validator
 

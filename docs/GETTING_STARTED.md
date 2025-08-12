@@ -68,8 +68,8 @@ You should see output similar to:
 
 When you connect to the mainnet, the following services are available:
 
-- **Mainnet RPC**: Available at `https://splendor-rpc.org/`
-- **Block Explorer**: Available at `https://splendor-rpc.org/`
+- **Mainnet RPC**: Available at `https://mainnet-rpc.splendor.org/`
+- **Block Explorer**: Available at `https://explorer.splendor.org/`
 - **Chain ID**: 2691
 - **Currency**: SPLD tokens
 
@@ -143,7 +143,7 @@ npm run build-node
 If you can't connect to the mainnet:
 
 1. **Check Internet Connection**: Ensure you have stable internet
-2. **Verify RPC Endpoint**: Test `https://splendor-rpc.org/` accessibility
+2. **Verify RPC Endpoint**: Test `https://mainnet-rpc.splendor.org/` accessibility
 3. **Firewall Settings**: Ensure ports are not blocked
 4. **DNS Issues**: Try using a different DNS server
 

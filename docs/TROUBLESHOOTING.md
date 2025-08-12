@@ -29,7 +29,8 @@ Before diving into specific issues, run through this quick checklist:
    # Test the RPC endpoint
    curl -X POST -H "Content-Type: application/json" \
         --data '{"jsonrpc":"2.0","method":"eth_chainId","params":[],"id":1}' \
-        https://splendor-rpc.org/
+        https://mainnet-rpc.splendor.org/
+     https://mainnet-rpc.splendor.org/
    
    # Expected response: {"jsonrpc":"2.0","id":1,"result":"0xa83"}
    ```
@@ -37,10 +38,10 @@ Before diving into specific issues, run through this quick checklist:
 2. **Check DNS Resolution**
    ```bash
    # Windows
-   nslookup splendor-rpc.org
+   nslookup mainnet-rpc.splendor.org
    
    # Linux/macOS
-   dig splendor-rpc.org
+   dig mainnet-rpc.splendor.org
    ```
 
 3. **Test with Different DNS**
@@ -70,7 +71,7 @@ Before diving into specific issues, run through this quick checklist:
    const { ethers } = require('ethers');
    
    // Configure provider with connection pooling
-   const provider = new ethers.JsonRpcProvider('https://splendor-rpc.org/', {
+   const provider = new ethers.JsonRpcProvider('https://mainnet-rpc.splendor.org/', {
      staticNetwork: ethers.Network.from(2691),
      batchMaxCount: 10,
      batchMaxSize: 1024 * 1024,
@@ -217,10 +218,10 @@ Before diving into specific issues, run through this quick checklist:
    - Enter exact details:
      ```
      Network Name: Splendor RPC
-     RPC URL: https://splendor-rpc.org/
+     RPC URL: https://mainnet-rpc.splendor.org/
      Chain ID: 2691
      Currency Symbol: SPLD
-     Block Explorer: https://splendor-rpc.org/
+     Block Explorer: https://explorer.splendor.org/
      ```
 
 2. **Clear MetaMask Cache**
@@ -419,7 +420,7 @@ Before diving into specific issues, run through this quick checklist:
    // hardhat.config.js
    networks: {
      splendor: {
-       url: "https://splendor-rpc.org/",
+       url: "https://mainnet-rpc.splendor.org/",
        chainId: 2691,
        accounts: [privateKey],
        gas: 8000000,
