@@ -166,38 +166,136 @@ func (s *Snapshot) apply(headers []*types.Header, chain consensus.ChainHeaderRea
 				newValidators[validator] = struct{}{}
 			}
 
-			// Clean up recent validators when validator set changes to prevent chain halt
-			// This handles both validator addition and removal cases
+			// ENHANCED BYZANTINE FAULT TOLERANCE: Clean up recent validators when validator set changes
+			// This handles validator addition, removal, and replacement cases to prevent chain halt
 			oldValidatorCount := len(snap.Validators)
 			newValidatorCount := len(newValidators)
 			
 			// Calculate new limit for recent validators
 			newLimit := uint64(newValidatorCount/2 + 1)
+			oldLimit := uint64(oldValidatorCount/2 + 1)
 			
-			// If validator set is expanding, we need to be more aggressive in cleanup
-			// to prevent all validators from being marked as "recently signed"
+			log.Info("Validator set change detected at epoch", 
+				"oldCount", oldValidatorCount, "newCount", newValidatorCount, 
+				"oldLimit", oldLimit, "newLimit", newLimit, "recentCount", len(snap.Recents))
+			
+			// CRITICAL FIX 1: Aggressive cleanup for validator set expansion
 			if newValidatorCount > oldValidatorCount {
-				// Clear more recent entries when expanding validator set
-				// This prevents the "Signed recently, must wait for others" deadlock
+				log.Info("Validator set expanding - applying aggressive recent cleanup")
+				
+				// Clear ALL recent entries that are older than the new limit
+				// This is more aggressive than the original fix to prevent deadlock
 				for blockNum := range snap.Recents {
 					if number >= newLimit && blockNum <= number-newLimit {
 						delete(snap.Recents, blockNum)
+						log.Debug("Cleared recent entry for expansion", "blockNum", blockNum)
 					}
 				}
-			} else if newValidatorCount < oldValidatorCount {
-				// Original logic for validator set reduction
-				oldLimit := uint64(oldValidatorCount/2 + 1)
-				for i := 0; i < oldValidatorCount/2-newValidatorCount/2; i++ {
-					delete(snap.Recents, number-oldLimit-uint64(i))
+				
+				// Additional safety: if still too many recents after cleanup, clear oldest entries
+				if len(snap.Recents) >= newValidatorCount {
+					log.Warn("Still too many recent validators after expansion cleanup, clearing oldest")
+					
+					// Find and remove the oldest entries until we have room
+					for len(snap.Recents) >= newValidatorCount {
+						oldestBlock := uint64(math.MaxUint64)
+						for blockNum := range snap.Recents {
+							if blockNum < oldestBlock {
+								oldestBlock = blockNum
+							}
+						}
+						delete(snap.Recents, oldestBlock)
+						log.Debug("Emergency cleared oldest recent entry", "blockNum", oldestBlock)
+					}
 				}
-			} else {
-				// Same validator count, just clean up old entries normally
+				
+			} else if newValidatorCount < oldValidatorCount {
+				// CRITICAL FIX 2: Enhanced cleanup for validator set reduction
+				log.Info("Validator set reducing - applying enhanced recent cleanup")
+				
+				// Clear entries based on the difference in validator counts
+				entriesToClear := oldValidatorCount/2 - newValidatorCount/2
+				if entriesToClear > 0 {
+					for i := 0; i < entriesToClear; i++ {
+						targetBlock := number - oldLimit - uint64(i)
+						if _, exists := snap.Recents[targetBlock]; exists {
+							delete(snap.Recents, targetBlock)
+							log.Debug("Cleared recent entry for reduction", "blockNum", targetBlock)
+						}
+					}
+				}
+				
+				// Additional cleanup for any entries beyond the new limit
 				for blockNum := range snap.Recents {
 					if number >= newLimit && blockNum <= number-newLimit {
 						delete(snap.Recents, blockNum)
+						log.Debug("Additional cleanup for reduction", "blockNum", blockNum)
+					}
+				}
+				
+			} else {
+				// CRITICAL FIX 3: Enhanced cleanup for same validator count (validator replacement)
+				log.Info("Validator set same size - checking for validator replacement")
+				
+				// Check if validators actually changed (replacement scenario)
+				validatorsChanged := false
+				for newValidator := range newValidators {
+					if _, exists := snap.Validators[newValidator]; !exists {
+						validatorsChanged = true
+						break
+					}
+				}
+				
+				if validatorsChanged {
+					log.Info("Validator replacement detected - applying cleanup")
+					
+					// Clear recent entries for replaced validators
+					validatorsToRemove := make([]uint64, 0)
+					for blockNum, recentValidator := range snap.Recents {
+						if _, stillValidator := newValidators[recentValidator]; !stillValidator {
+							validatorsToRemove = append(validatorsToRemove, blockNum)
+						}
+					}
+					
+					for _, blockNum := range validatorsToRemove {
+						delete(snap.Recents, blockNum)
+						log.Debug("Cleared recent entry for replaced validator", "blockNum", blockNum)
+					}
+				}
+				
+				// Standard cleanup for old entries
+				for blockNum := range snap.Recents {
+					if number >= newLimit && blockNum <= number-newLimit {
+						delete(snap.Recents, blockNum)
+						log.Debug("Standard cleanup", "blockNum", blockNum)
 					}
 				}
 			}
+			
+			// CRITICAL FIX 4: Emergency deadlock prevention
+			// If we still have too many recent validators after all cleanup, force clear oldest
+			if len(snap.Recents) >= newValidatorCount {
+				log.Error("EMERGENCY: Too many recent validators after cleanup - forcing clear", 
+					"recentCount", len(snap.Recents), "validatorCount", newValidatorCount)
+				
+				// Keep clearing oldest entries until we have breathing room
+				targetRecentCount := (newValidatorCount * 2) / 3 // Keep it at 2/3 of validator count
+				
+				for len(snap.Recents) > targetRecentCount {
+					oldestBlock := uint64(math.MaxUint64)
+					for blockNum := range snap.Recents {
+						if blockNum < oldestBlock {
+							oldestBlock = blockNum
+						}
+					}
+					delete(snap.Recents, oldestBlock)
+					log.Warn("Emergency cleared recent validator", "blockNum", oldestBlock, 
+						"remainingRecents", len(snap.Recents), "target", targetRecentCount)
+				}
+			}
+			
+			log.Info("Validator set cleanup completed", 
+				"finalRecentCount", len(snap.Recents), "validatorCount", newValidatorCount)
 
 			snap.Validators = newValidators
 		}

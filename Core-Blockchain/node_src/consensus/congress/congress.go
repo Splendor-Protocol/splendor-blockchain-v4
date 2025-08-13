@@ -1162,35 +1162,76 @@ func (c *Congress) Seal(chain consensus.ChainHeaderReader, block *types.Block, r
 	if _, authorized := snap.Validators[val]; !authorized {
 		return errUnauthorizedValidator
 	}
-	// If we're amongst the recent validators, wait for the next block
+	// Enhanced Byzantine Fault Tolerance - Check if we're amongst the recent validators
 	for seen, recent := range snap.Recents {
 		if recent == val {
 			// Validator is among recents, only wait if the current block doesn't shift it out
 			limit := uint64(len(snap.Validators)/2 + 1)
 			
-			// More aggressive cleanup for Byzantine Fault Tolerance
+			// CRITICAL FIX 1: More aggressive cleanup for Byzantine Fault Tolerance
 			// Allow signing if we're far enough from the limit or if validator set is expanding
 			if number >= limit && seen <= number-limit {
 				// Validator can sign - they're outside the recent limit
+				log.Info("Validator cleared from recent limit, allowing to sign", "validator", val, "seen", seen, "limit", limit)
 				break
 			}
 			
-			// Additional check: if all validators are in recents (deadlock situation),
-			// allow the validator with the lowest recent block to sign
-			if len(snap.Recents) >= len(snap.Validators) {
+			// CRITICAL FIX 2: Emergency deadlock detection and resolution
+			// If most validators are in recents (potential deadlock), apply emergency rules
+			recentCount := len(snap.Recents)
+			validatorCount := len(snap.Validators)
+			
+			// If 75% or more validators are in recents, we're approaching deadlock
+			if recentCount >= (validatorCount*3)/4 {
+				log.Warn("Potential Byzantine deadlock detected", "recentCount", recentCount, "validatorCount", validatorCount)
+				
+				// Allow the validator with the oldest "recent" entry to sign
 				oldestSeen := uint64(math.MaxUint64)
-				for recentSeen := range snap.Recents {
+				oldestValidator := common.Address{}
+				for recentSeen, recentValidator := range snap.Recents {
 					if recentSeen < oldestSeen {
 						oldestSeen = recentSeen
+						oldestValidator = recentValidator
 					}
 				}
-				if seen == oldestSeen {
-					log.Info("Breaking Byzantine deadlock - allowing oldest recent validator to sign")
+				
+				if val == oldestValidator {
+					log.Info("Breaking Byzantine deadlock - allowing oldest recent validator to sign", 
+						"validator", val, "oldestSeen", oldestSeen, "recentCount", recentCount)
 					break
 				}
 			}
 			
-			log.Info("Signed recently, must wait for others")
+			// CRITICAL FIX 3: Complete deadlock emergency override
+			// If ALL validators are in recents, allow any validator to sign after a delay
+			if recentCount >= validatorCount {
+				log.Error("CRITICAL: Complete Byzantine deadlock detected - all validators are recent", 
+					"recentCount", recentCount, "validatorCount", validatorCount)
+				
+				// In complete deadlock, allow the validator whose turn it is to sign
+				if snap.inturn(number, val) {
+					log.Info("Emergency override: allowing in-turn validator to break complete deadlock", "validator", val)
+					break
+				}
+				
+				// If no in-turn validator, allow the one with the oldest recent entry
+				oldestSeen := uint64(math.MaxUint64)
+				oldestValidator := common.Address{}
+				for recentSeen, recentValidator := range snap.Recents {
+					if recentSeen < oldestSeen {
+						oldestSeen = recentSeen
+						oldestValidator = recentValidator
+					}
+				}
+				
+				if val == oldestValidator {
+					log.Info("Emergency override: allowing oldest recent validator to break complete deadlock", 
+						"validator", val, "oldestSeen", oldestSeen)
+					break
+				}
+			}
+			
+			log.Info("Signed recently, must wait for others", "validator", val, "seen", seen, "recentCount", recentCount, "validatorCount", validatorCount)
 			return nil
 		}
 	}
