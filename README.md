@@ -209,9 +209,9 @@ npx hardhat run scripts/deploy.js --network splendor
 ## 🤝 Community
 
 ### Get Involved
-- **Discord**: Join our developer community
+- **Telegram**: [Splendor Labs](https://t.me/SplendorLabs) - Join our developer community
+- **Twitter**: [@SplendorLabs](https://x.com/splendorlabs) - Follow for updates and announcements
 - **GitHub**: Contribute to the codebase
-- **Twitter**: Follow for updates and announcements
 - **Medium**: Read technical articles and updates
 
 ### Governance
@@ -274,7 +274,8 @@ npx hardhat run scripts/deploy.js --network splendor
 - [Troubleshooting](docs/TROUBLESHOOTING.md)
 
 ### Community Support
-- **Discord**: Real-time community help
+- **Telegram**: [Splendor Labs](https://t.me/SplendorLabs) - Real-time community help
+- **Twitter**: [@SplendorLabs](https://x.com/splendorlabs) - Updates and announcements
 - **GitHub Issues**: Report bugs and request features
 - **Stack Overflow**: Tag questions with `splendor-blockchain`
 
