@@ -77,7 +77,7 @@ startRpc(){
         :
     else
         tmux new-session -d -s node$i
-        tmux send-keys -t node$i " ./node_src/build/bin/geth --datadir ./chaindata/node$i --networkid $CHAINID --bootnodes $BOOTNODE --port 30303 --ws --ws.addr $IP --ws.origins '*' --ws.port 8545 --http --http.port 80 --rpc.txfeecap 0  --http.corsdomain '*' --nat 'any' --http.api db,eth,net,web3,personal,txpool,miner,debug --http.addr $IP --http.vhosts=$VHOST --vmdebug --pprof --pprof.port 6060 --pprof.addr $IP --gcmode=archive --syncmode=full --ipcpath './chaindata/node$i/geth.ipc' console" Enter
+        tmux send-keys -t node$i " ./node_src/build/bin/geth --datadir ./chaindata/node$i --networkid $CHAINID --bootnodes $BOOTNODE --port 30303 --ws --ws.addr $IP --ws.origins '*' --ws.port 8545 --http --http.port 80 --rpc.txfeecap 0  --http.corsdomain '*' --nat 'any' --http.api db,eth,net,web3,personal,txpool,miner,debug --http.addr $IP --vmdebug --pprof --pprof.port 6060 --pprof.addr $IP --gcmode=archive --syncmode=full --ipcpath './chaindata/node$i/geth.ipc' console" Enter
        
     fi
 
@@ -94,7 +94,7 @@ startValidator(){
         :
     else
         tmux new-session -d -s node$i
-        tmux send-keys -t 0 "./node_src/build/bin/geth --datadir ./chaindata/node$i --networkid $CHAINID --bootnodes $BOOTNODE --mine --port 30303 --nat extip:$IP --gpo.percentile 0 --gpo.maxprice 100 --gpo.ignoreprice 0 --miner.gaslimit 300000000 --unlock 0 --password ./chaindata/node$i/pass.txt --syncmode=full console" Enter
+        tmux send-keys -t node$i "./node_src/build/bin/geth --datadir ./chaindata/node$i --networkid $CHAINID --bootnodes $BOOTNODE --mine --port 30303 --nat extip:$IP --gpo.percentile 0 --gpo.maxprice 100 --gpo.ignoreprice 0 --miner.gaslimit 300000000 --unlock 0 --password ./chaindata/node$i/pass.txt --syncmode=full console" Enter
     fi
 
     ((i += 1))
