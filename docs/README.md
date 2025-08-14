@@ -8,6 +8,7 @@ Welcome to the comprehensive documentation for Splendor Blockchain V4. This docu
 - **[Getting Started Guide](GETTING_STARTED.md)** - Quick start guide for new users
 - **[MetaMask Setup](METAMASK_SETUP.md)** - Configure MetaMask for Splendor network
 - **[Validator Guide](VALIDATOR_GUIDE.md)** - Complete guide for running a validator node
+- **[RPC Setup Guide](RPC_SETUP_GUIDE.md)** - Complete guide for setting up RPC endpoints
 
 ### Technical Documentation
 - **[API Reference](API_REFERENCE.md)** - Complete JSON-RPC API documentation
@@ -39,6 +40,12 @@ Welcome to the comprehensive documentation for Splendor Blockchain V4. This docu
 - [Staking Process](VALIDATOR_GUIDE.md#staking)
 - [Monitoring](VALIDATOR_GUIDE.md#monitoring)
 
+### For RPC Operators
+- [RPC Requirements](RPC_SETUP_GUIDE.md#prerequisites)
+- [Quick Setup](RPC_SETUP_GUIDE.md#quick-setup)
+- [Configuration](RPC_SETUP_GUIDE.md#rpc-configuration)
+- [Load Balancing](RPC_SETUP_GUIDE.md#load-balancing)
+
 ### For Contributors
 - [How to Contribute](CONTRIBUTING.md#how-to-contribute)
 - [Coding Standards](CONTRIBUTING.md#coding-standards)
@@ -53,10 +60,8 @@ Welcome to the comprehensive documentation for Splendor Blockchain V4. This docu
 - **Explorer**: [https://explorer.splendor.org](https://explorer.splendor.org)
 
 ### Community
-- **Discord**: [Join our Discord](https://discord.gg/splendor)
-- **Telegram**: [Splendor Community](https://t.me/splendor)
-- **Twitter**: [@SplendorChain](https://twitter.com/SplendorChain)
-- **Reddit**: [r/SplendorBlockchain](https://reddit.com/r/SplendorBlockchain)
+- **Telegram**: [Splendor Labs](https://t.me/SplendorLabs)
+- **Twitter**: [@SplendorLabs](https://x.com/splendorlabs)
 
 ### Developer Resources
 - **SDK**: [JavaScript/TypeScript SDK](https://www.npmjs.com/package/@splendor/sdk)
@@ -83,7 +88,7 @@ Security best practices, vulnerability reporting, and operational guides for val
 If you find errors in the documentation or have suggestions for improvement:
 1. [Open an issue](https://github.com/Splendor-Protocol/splendor-blockchain-v4/issues/new?template=bug_report.md)
 2. [Submit a pull request](https://github.com/Splendor-Protocol/splendor-blockchain-v4/pulls)
-3. Join our [Discord](https://discord.gg/splendor) for real-time help
+3. Join our [Telegram](https://t.me/SplendorLabs) for real-time help
 
 ### Technical Support
 - **General Questions**: [GitHub Discussions](https://github.com/Splendor-Protocol/splendor-blockchain-v4/discussions)
@@ -92,9 +97,8 @@ If you find errors in the documentation or have suggestions for improvement:
 - **Security Issues**: Email security@splendor.org
 
 ### Community Support
-- **Discord**: Real-time chat with the community
 - **Telegram**: Community discussions and announcements
-- **Reddit**: Long-form discussions and community posts
+- **Twitter**: Updates and community engagement
 
 ## 📝 Contributing to Documentation
 
@@ -151,7 +155,7 @@ Help us improve by:
 
 ---
 
-**Need immediate help?** Join our [Discord](https://discord.gg/splendor) for real-time support from the community and core team.
+**Need immediate help?** Join our [Telegram](https://t.me/SplendorLabs) for real-time support from the community and core team.
 
 **Found a bug?** Report it using our [bug report template](https://github.com/Splendor-Protocol/splendor-blockchain-v4/issues/new?template=bug_report.md).
 

@@ -242,6 +242,7 @@ if (typeof window.ethereum !== 'undefined') {
 
 - [Smart Contract Development Guide](SMART_CONTRACTS.md)
 - [Validator Guide](VALIDATOR_GUIDE.md)
+- [RPC Setup Guide](RPC_SETUP_GUIDE.md)
 - [API Reference](API_REFERENCE.md)
 - [Troubleshooting Guide](TROUBLESHOOTING.md)
 

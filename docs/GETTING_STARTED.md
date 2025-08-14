@@ -93,16 +93,23 @@ npm run start-validator
 To run as an RPC node (no staking required):
 
 ```bash
+# Setup RPC node
+cd Core-Blockchain
+./node-setup.sh --rpc
+
 # Start RPC node
-npm run start-rpc
+./node-start.sh --rpc
 ```
+
+For detailed RPC setup instructions, see the [RPC Setup Guide](RPC_SETUP_GUIDE.md).
 
 ## Next Steps
 
 1. **Connect MetaMask**: Follow the [MetaMask Setup Guide](METAMASK_SETUP.md)
 2. **Deploy Contracts**: See the [Smart Contract Development Guide](SMART_CONTRACTS.md)
 3. **Become a Validator**: Check out the [Validator Guide](VALIDATOR_GUIDE.md)
-4. **Explore APIs**: Check out the [API Reference](API_REFERENCE.md)
+4. **Setup RPC Node**: See the [RPC Setup Guide](RPC_SETUP_GUIDE.md)
+5. **Explore APIs**: Check out the [API Reference](API_REFERENCE.md)
 
 ## Common Commands
 
