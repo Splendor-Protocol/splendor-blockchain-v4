@@ -48,9 +48,9 @@ module.exports = {
   networks: {
     hardhat: {},
     splendor: {
-      url: "https://testnet-rpc.splendor.org/",
-      chainId: 2692,
-      gasPrice: 10000000000,
+      url: "https://mainnet-rpc.splendor.org/",
+      chainId: 2691,
+      gasPrice: 5000000000,
       accounts: [`0x${ACCOUNT_PRIVATE_KEY}`]
     },
    
