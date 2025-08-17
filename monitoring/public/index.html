@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Splendor Blockchain Monitor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .status-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .status-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .status-card h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .status-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .status-label {
+            font-weight: 500;
+        }
+
+        .status-value {
+            font-weight: bold;
+        }
+
+        .status-healthy {
+            color: #28a745;
+        }
+
+        .status-unhealthy {
+            color: #dc3545;
+        }
+
+        .status-warning {
+            color: #ffc107;
+        }
+
+        .alerts-section {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .alerts-section h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .alert-item {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border-left: 4px solid;
+        }
+
+        .alert-critical {
+            background-color: #f8d7da;
+            border-left-color: #dc3545;
+        }
+
+        .alert-warning {
+            background-color: #fff3cd;
+            border-left-color: #ffc107;
+        }
+
+        .alert-good {
+            background-color: #d4edda;
+            border-left-color: #28a745;
+        }
+
+        .alert-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .alert-message {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .alert-time {
+            font-size: 0.8rem;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        .logs-section {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .logs-section h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .logs-container {
+            background: #f8f9fa;
+            border-radius: 5px;
+            padding: 15px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .log-line {
+            margin-bottom: 5px;
+            word-wrap: break-word;
+        }
+
+        .log-error {
+            color: #dc3545;
+        }
+
+        .log-warning {
+            color: #ffc107;
+        }
+
+        .log-info {
+            color: #17a2b8;
+        }
+
+        .refresh-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background 0.2s;
+        }
+
+        .refresh-btn:hover {
+            background: #5a6fd8;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+
+        .last-updated {
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .status-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔗 Splendor Blockchain Monitor</h1>
+            <p>Real-time monitoring of validators, RPC nodes, and services</p>
+        </div>
+
+        <div class="last-updated" id="lastUpdated">
+            Last updated: Loading...
+        </div>
+
+        <div class="status-grid" id="statusGrid">
+            <div class="loading">Loading status...</div>
+        </div>
+
+        <div class="alerts-section">
+            <h3>🚨 Recent Alerts</h3>
+            <div id="alertsContainer">
+                <div class="loading">Loading alerts...</div>
+            </div>
+        </div>
+
+        <div class="logs-section">
+            <h3>📋 System Logs</h3>
+            <div class="logs-container" id="logsContainer">
+                <div class="loading">Loading logs...</div>
+            </div>
+        </div>
+    </div>
+
+    <button class="refresh-btn" onclick="refreshData()">🔄 Refresh</button>
+
+    <script>
+        let refreshInterval;
+
+        async function fetchData(endpoint) {
+            try {
+                const response = await fetch(`/api/${endpoint}`);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                return await response.json();
+            } catch (error) {
+                console.error(`Error fetching ${endpoint}:`, error);
+                return null;
+            }
+        }
+
+        function formatTimestamp(timestamp) {
+            return new Date(timestamp).toLocaleString();
+        }
+
+        function renderStatus(data) {
+            const statusGrid = document.getElementById('statusGrid');
+            
+            if (!data) {
+                statusGrid.innerHTML = '<div class="loading">Error loading status data</div>';
+                return;
+            }
+
+            const { summary, details } = data;
+
+            statusGrid.innerHTML = `
+                <div class="status-card">
+                    <h3>📊 System Summary</h3>
+                    <div class="status-item">
+                        <span class="status-label">Total Validators:</span>
+                        <span class="status-value">${summary.totalValidators}</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Healthy Validators:</span>
+                        <span class="status-value ${summary.healthyValidators === summary.totalValidators ? 'status-healthy' : 'status-warning'}">
+                            ${summary.healthyValidators}/${summary.totalValidators}
+                        </span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Total RPC Nodes:</span>
+                        <span class="status-value">${summary.totalRPCNodes}</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Healthy RPC Nodes:</span>
+                        <span class="status-value ${summary.healthyRPCNodes === summary.totalRPCNodes ? 'status-healthy' : 'status-warning'}">
+                            ${summary.healthyRPCNodes}/${summary.totalRPCNodes}
+                        </span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Online Services:</span>
+                        <span class="status-value ${summary.onlineServices === summary.totalServices ? 'status-healthy' : 'status-warning'}">
+                            ${summary.onlineServices}/${summary.totalServices}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="status-card">
+                    <h3>⚡ Validators</h3>
+                    ${Object.keys(details.validators).length === 0 ? 
+                        '<div class="status-item"><span class="status-label">No validators found</span></div>' :
+                        Object.entries(details.validators).map(([name, status]) => `
+                            <div class="status-item">
+                                <span class="status-label">${name}:</span>
+                                <span class="status-value ${status.healthy ? 'status-healthy' : 'status-unhealthy'}">
+                                    ${status.healthy ? '✅ Online' : '❌ Offline'}
+                                </span>
+                            </div>
+                        `).join('')
+                    }
+                </div>
+
+                <div class="status-card">
+                    <h3>🌐 RPC Nodes</h3>
+                    ${Object.keys(details.rpcNodes).length === 0 ? 
+                        '<div class="status-item"><span class="status-label">No RPC nodes found</span></div>' :
+                        Object.entries(details.rpcNodes).map(([name, status]) => `
+                            <div class="status-item">
+                                <span class="status-label">${name}:</span>
+                                <span class="status-value ${status.healthy ? 'status-healthy' : 'status-unhealthy'}">
+                                    ${status.healthy ? '✅ Online' : '❌ Offline'}
+                                    ${status.responseTime ? ` (${status.responseTime}ms)` : ''}
+                                </span>
+                            </div>
+                        `).join('')
+                    }
+                </div>
+
+                <div class="status-card">
+                    <h3>🔧 Services</h3>
+                    ${Object.keys(details.services).length === 0 ? 
+                        '<div class="status-item"><span class="status-label">No services found</span></div>' :
+                        Object.entries(details.services).map(([name, service]) => `
+                            <div class="status-item">
+                                <span class="status-label">${name}:</span>
+                                <span class="status-value ${service.status === 'online' ? 'status-healthy' : 'status-unhealthy'}">
+                                    ${service.status === 'online' ? '✅' : '❌'} ${service.status}
+                                </span>
+                            </div>
+                        `).join('')
+                    }
+                </div>
+            `;
+
+            document.getElementById('lastUpdated').textContent = 
+                `Last updated: ${formatTimestamp(data.timestamp)}`;
+        }
+
+        function renderAlerts(alerts) {
+            const alertsContainer = document.getElementById('alertsContainer');
+            
+            if (!alerts || alerts.length === 0) {
+                alertsContainer.innerHTML = '<div class="status-item"><span class="status-label">No recent alerts</span></div>';
+                return;
+            }
+
+            alertsContainer.innerHTML = alerts.slice(0, 10).map(alert => `
+                <div class="alert-item alert-${alert.severity}">
+                    <div class="alert-title">${alert.title}</div>
+                    <div class="alert-message">${alert.message.replace(/\n/g, '<br>')}</div>
+                    <div class="alert-time">${formatTimestamp(alert.timestamp)}</div>
+                </div>
+            `).join('');
+        }
+
+        function renderLogs(logs) {
+            const logsContainer = document.getElementById('logsContainer');
+            
+            if (!logs || logs.length === 0) {
+                logsContainer.innerHTML = '<div class="log-line">No logs available</div>';
+                return;
+            }
+
+            logsContainer.innerHTML = logs.map(log => {
+                let className = 'log-line';
+                if (log.includes('[ERROR]')) className += ' log-error';
+                else if (log.includes('[WARNING]')) className += ' log-warning';
+                else if (log.includes('[INFO]')) className += ' log-info';
+                
+                return `<div class="${className}">${log}</div>`;
+            }).join('');
+
+            // Auto-scroll to bottom
+            logsContainer.scrollTop = logsContainer.scrollHeight;
+        }
+
+        async function refreshData() {
+            const [status, alerts, logs] = await Promise.all([
+                fetchData('status'),
+                fetchData('alerts'),
+                fetchData('logs')
+            ]);
+
+            renderStatus(status);
+            renderAlerts(alerts);
+            renderLogs(logs);
+        }
+
+        function startAutoRefresh() {
+            refreshInterval = setInterval(refreshData, 30000); // Refresh every 30 seconds
+        }
+
+        function stopAutoRefresh() {
+            if (refreshInterval) {
+                clearInterval(refreshInterval);
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            refreshData();
+            startAutoRefresh();
+        });
+
+        // Handle page visibility changes
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                stopAutoRefresh();
+            } else {
+                refreshData();
+                startAutoRefresh();
+            }
+        });
+    </script>
+</body>
+</html>
