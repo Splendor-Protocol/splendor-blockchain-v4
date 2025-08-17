@@ -122,7 +122,19 @@ finalize(){
   echo -e "\n${ORANGE}+-- Please wait a few seconds. Do not turn off the server or interrupt --+"
   
   cd ./plugins/sync-helper/
-  pm2 start index.js
+  
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+  # Check if sync-helper is already running
+  if pm2 list | grep -q "index"; then
+    echo -e "${ORANGE}sync-helper is already running, restarting...${NC}"
+    pm2 restart index
+  else
+    echo -e "${GREEN}Starting sync-helper...${NC}"
+    pm2 start index.js --name "sync-helper"
+  fi
+  
   pm2 save
   cd ../../
 
