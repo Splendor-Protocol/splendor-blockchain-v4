@@ -10,7 +10,7 @@ If you deployed your validator after August 17, 2025, the PM2 fix is already inc
 - ❌ `[PM2][ERROR] Script already launched, add -f option to force re-execution`
 - ❌ `pm2: command not found`
 
-## Quick Fix for Existing Validators (Pre-8/17/25)
+## Quick Fix for Existing Validators/RPCs (Pre-8/17/25)
 
 ### Step 1: Check if you need NVM/PM2
 ```bash
@@ -46,7 +46,7 @@ scp fix-pm2-startup.sh YOUR_USER@YOUR_SERVER_IP:~/
 ssh YOUR_USER@YOUR_SERVER_IP "chmod +x fix-pm2-startup.sh && ./fix-pm2-startup.sh"
 ```
 
-### Step 3: Restart your validator
+### Step 3: Restart your node
 ```bash
 # SSH into your server
 ssh YOUR_USER@YOUR_SERVER_IP
@@ -55,9 +55,14 @@ ssh YOUR_USER@YOUR_SERVER_IP
 pm2 stop all
 tmux kill-server
 
-# Start validator with fixed script
+# Start your node with fixed script
 cd ~/splendor-blockchain-v4/Core-Blockchain
+
+# For validators:
 ./node-start.sh --validator
+
+# For RPC nodes:
+./node-start.sh --rpc
 ```
 
 ### Step 4: Verify it works
@@ -113,16 +118,26 @@ Your node-start.sh wasn't updated properly. Try Option A (copy the fixed file).
 To fix multiple servers at once:
 
 ```bash
-# Create server list
-echo "user1@server1" > servers.txt
-echo "user2@server2" >> servers.txt
+# Create server lists
+echo "user1@validator1" > validators.txt
+echo "user2@validator2" >> validators.txt
 
-# Fix all servers
+echo "user3@rpc1" > rpcs.txt
+echo "user4@rpc2" >> rpcs.txt
+
+# Fix all validator servers
 while read server; do
-    echo "Fixing $server..."
+    echo "Fixing validator: $server..."
     scp Core-Blockchain/node-start.sh $server:~/splendor-blockchain-v4/Core-Blockchain/
     ssh $server "cd ~/splendor-blockchain-v4/Core-Blockchain && pm2 stop all && tmux kill-server && ./node-start.sh --validator"
-done < servers.txt
+done < validators.txt
+
+# Fix all RPC servers
+while read server; do
+    echo "Fixing RPC: $server..."
+    scp Core-Blockchain/node-start.sh $server:~/splendor-blockchain-v4/Core-Blockchain/
+    ssh $server "cd ~/splendor-blockchain-v4/Core-Blockchain && pm2 stop all && tmux kill-server && ./node-start.sh --rpc"
+done < rpcs.txt
 ```
 
-That's it! Your PM2 errors should be gone and validators will restart properly.
+That's it! Your PM2 errors should be gone and both validators and RPCs will restart properly.

@@ -1,9 +1,9 @@
 # Auto-Start Service Setup Guide
 
 ## What This Does
-- ✅ Automatically starts your validator after server reboots
-- ✅ Creates a systemd service that manages your validator
-- ✅ Ensures validator restarts if it crashes
+- ✅ Automatically starts your validator/RPC after server reboots
+- ✅ Creates a systemd service that manages your node
+- ✅ Ensures your node restarts if it crashes
 
 ## Prerequisites
 - Your validator must be working properly first
