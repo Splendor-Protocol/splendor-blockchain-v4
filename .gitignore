@@ -133,10 +133,5 @@ gitignore.txt
 # Server configurations (sensitive)
 server-configs/
 
-# Monitoring system (contains sensitive tokens and runtime files)
-monitoring/node_modules/
-monitoring/.env
-monitoring/logs/
-monitoring/monitoring.log
-monitoring/status.json
-monitoring/ecosystem.config.js
+# Monitoring system (entire folder - contains sensitive tokens)
+monitoring/
