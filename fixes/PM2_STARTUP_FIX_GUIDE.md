@@ -1,10 +1,16 @@
 # PM2 Startup Error Fix Guide
 
+## ⚠️ IMPORTANT: For Validators/RPCs Prior to August 17, 2025 Only
+
+**This fix is only needed for validators/RPC nodes deployed before August 17, 2025.**
+
+If you deployed your validator after August 17, 2025, the PM2 fix is already included in your node-start.sh file and you don't need this fix.
+
 ## What This Fixes
 - ❌ `[PM2][ERROR] Script already launched, add -f option to force re-execution`
 - ❌ `pm2: command not found`
 
-## Quick Fix for Existing Validators
+## Quick Fix for Existing Validators (Pre-8/17/25)
 
 ### Step 1: Check if you need NVM/PM2
 ```bash

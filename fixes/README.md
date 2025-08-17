@@ -1,62 +1,31 @@
-# Splendor Validator Fixes
+# PM2 Startup Error Fix
 
-This folder contains fixes and guides for common Splendor validator issues.
+## ⚠️ For Validators/RPCs Prior to August 17, 2025 Only
 
-## Available Fixes
+This fix is **only needed for validators/RPC nodes deployed before August 17, 2025**.
 
-### 1. PM2 Startup Error Fix
-**File**: `PM2_STARTUP_FIX_GUIDE.md`  
-**Script**: `fix-pm2-startup.sh`
+If you deployed your validator after August 17, 2025, the PM2 fix is already included and you don't need this.
 
-**Fixes:**
+## What This Fixes
+
 - ❌ `[PM2][ERROR] Script already launched, add -f option to force re-execution`
 - ❌ `pm2: command not found`
 
-**When to use:** When your validator shows PM2 errors during startup.
+## Files in this folder
 
----
-
-### 2. Auto-Start Service Setup
-**File**: `AUTO_START_SERVICE_GUIDE.md`  
-**Script**: `create-autostart-service.sh`
-
-**Fixes:**
-- ❌ Manual validator restart after server reboots
-- ❌ Validator not starting automatically
-
-**When to use:** When you want your validator to start automatically after server reboots.
-
----
+- `PM2_STARTUP_FIX_GUIDE.md` - Complete guide to fix PM2 startup errors
+- `fix-pm2-startup.sh` - Automated script to apply the fix
 
 ## Quick Start
 
-### If you have PM2 errors:
-1. Follow `PM2_STARTUP_FIX_GUIDE.md` first
-2. Then optionally follow `AUTO_START_SERVICE_GUIDE.md`
+1. **Check if you need this fix**: Try starting your validator. If you get PM2 errors, you need this fix.
 
-### If you just want auto-start:
-1. Make sure your validator works properly
-2. Follow `AUTO_START_SERVICE_GUIDE.md`
+2. **Follow the guide**: Open `PM2_STARTUP_FIX_GUIDE.md` for step-by-step instructions.
 
----
+3. **Two options available**:
+   - Copy the fixed node-start.sh file (easiest)
+   - Run the automated fix script
 
-## Files in this folder
+## Need Auto-Start After Reboot?
 
-```
-fixes/
-├── README.md                      # This file
-├── PM2_STARTUP_FIX_GUIDE.md      # Guide to fix PM2 startup errors
-├── AUTO_START_SERVICE_GUIDE.md   # Guide to setup auto-start service
-├── fix-pm2-startup.sh            # Script to fix PM2 startup issues
-└── create-autostart-service.sh   # Script to create auto-start service
-```
-
----
-
-## Need Help?
-
-1. **PM2 Errors**: Start with `PM2_STARTUP_FIX_GUIDE.md`
-2. **Auto-Start Issues**: Use `AUTO_START_SERVICE_GUIDE.md`
-3. **Both Issues**: Fix PM2 errors first, then setup auto-start
-
-All guides include troubleshooting sections and multiple server deployment examples.
+If you want your validator to start automatically after server reboots, check the `auto-start/` folder for the auto-start service setup.
