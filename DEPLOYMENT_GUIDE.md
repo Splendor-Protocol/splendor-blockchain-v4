@@ -8,7 +8,7 @@ Splendor RPC is a DPoS (Delegated Proof of Stake) blockchain with the following 
 
 - **Chain ID**: 2691
 - **Network Name**: Splendor RPC
-- **RPC URL**: https://splendor-rpc.org/
+- **RPC URL**: https://mainnet-rpc.splendor.org
 - **Initial Supply**: 26,000,000,000 SPLD (26 billion tokens)
 - **Tiered Validator System**: Bronze, Silver, Gold tiers
 - **Fair Fee Distribution**: 60% Validators, 30% Stakers, 10% Protocol Development
@@ -74,13 +74,14 @@ Splendor RPC is a DPoS (Delegated Proof of Stake) blockchain with the following 
 
 1. **Clone Repository**:
    ```bash
-   git clone https://github.com/MNZChain/Core-Blockchain.git
-   cd Core-Blockchain
+   https://github.com/Splendor-Protocol/splendor-blockchain-v4.git
+   cd splendor-blockchain-v4/Core-Blockchain
    ```
 
 2. **Setup Validator Node**:
    ```bash
    ./node-setup.sh --validator 1
+   source ~/.bashrc
    ```
 
 3. **Start Node**:
@@ -144,7 +145,6 @@ Splendor RPC is a DPoS (Delegated Proof of Stake) blockchain with the following 
 
 ### Core Blockchain Files
 - `genesis.json`: Initial blockchain state with 26B supply
-- `node_src/params/config.go`: Chain parameters and constants
 - `readme.md`: Updated documentation with tier information
 
 ### System Contract Files
