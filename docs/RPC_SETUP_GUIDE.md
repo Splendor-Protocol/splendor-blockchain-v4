@@ -11,7 +11,9 @@ RPC (Remote Procedure Call) nodes provide read-only access to the blockchain net
 - Ubuntu 20.04 LTS (Focal Fossa) or compatible
 - Root access to the server
 - Minimum 4GB RAM, 2 CPU cores
+- Recomended: 16GB RAM and 8 CPU Cores
 - At least 100GB available storage
+- Recomended: 1TB ssd storage
 - Stable internet connection
 - Open ports: 80 (HTTP RPC), 8545 (WebSocket), 30303 (P2P)
 
